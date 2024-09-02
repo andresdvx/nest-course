@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import {v4 as uuid} from 'uuid'
+import { v4 as uuid } from 'uuid';
 
 export interface Car {
-  id:    string;
+  id: string;
   brand: string;
   model: string;
 }
@@ -31,7 +31,7 @@ export class CarsService {
     return this.cars;
   }
 
-  public updateCar(carId: string, body) : Car[]{
+  public updateCar(carId: string, body): Car[] {
     console.log(body);
     const index: number = this.cars.indexOf(
       this.cars.find((car) => car.id === carId),
@@ -40,7 +40,10 @@ export class CarsService {
     return this.cars;
   }
 
-  public deleteCar(carId: string) : Car{
-    return this.cars.splice(this.cars.indexOf(this.cars.find((car) => car.id === carId)), 1)[0];
+  public deleteCar(carId: string): Car {
+    return this.cars.splice(
+      this.cars.indexOf(this.cars.find((car) => car.id === carId)),
+      1,
+    )[0];
   }
 }
