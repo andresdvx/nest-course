@@ -52,10 +52,9 @@ export class CarsService {
     return carDb;
   }
 
-  public deleteCar(carId: string): Car {
-    return this.cars.splice(
-      this.cars.indexOf(this.cars.find((car) => car.id === carId)),
-      1,
-    )[0];
+  public deleteCar(id: string): Car {
+    let car = this.findById(id);
+    this.cars = this.cars.filter((car) => car.id !== id);
+    return car;
   }
 }
