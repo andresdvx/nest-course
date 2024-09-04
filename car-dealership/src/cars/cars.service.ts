@@ -1,5 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Module } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
+import { CreateCarDto } from './dto/createCar.dto';
 
 export interface Car {
   id: string;
@@ -26,9 +27,13 @@ export class CarsService {
     return car;
   }
 
-  public createCar(car: Car): Car[] {
+  public createCar(createCarDto: CreateCarDto) : Car {
+    const car: Car = {
+      id: uuid(),
+      ...createCarDto,
+    };
     this.cars.push(car);
-    return this.cars;
+    return car;
   }
 
   public updateCar(carId: string, body): Car[] {
