@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Module } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { CreateCarDto, UpdateCarDto } from './dto';
 
