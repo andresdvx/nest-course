@@ -54,7 +54,7 @@ export class BrandsService {
     return brandFound;
   }
 
-  fillBrandsWithSeedData(brands : Brand[]){
+  fillBrandsWithSeedData(brands: Brand[]) {
     this.brands = brands;
   }
 }
