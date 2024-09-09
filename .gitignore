@@ -1,3 +1,6 @@
 /car-dealership/dist
 /car-dealership/node_modules
 /car-dealership/test/coverage
+/pokedex/dist
+/pokedex/node_modules
+/pokedex/test/coverage
