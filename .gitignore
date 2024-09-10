@@ -4,3 +4,4 @@
 /pokedex/dist
 /pokedex/node_modules
 /pokedex/test/coverage
+/pokedex/mongo
