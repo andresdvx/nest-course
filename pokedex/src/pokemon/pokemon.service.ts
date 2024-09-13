@@ -23,12 +23,7 @@ export class PokemonService {
       const pokemon = await this.pokemonModel.create({ no, name });
       return pokemon;
     } catch (error) {
-      console.log(error);
-      if (error.code === 11000)
-        throw new BadRequestException(JSON.stringify(error.keyValue));
-      throw new InternalServerErrorException(
-        'can not create pokemon - check server logs',
-      );
+      this.handleException(error);
     }
   }
 
@@ -64,11 +59,24 @@ export class PokemonService {
       throw new NotFoundException(
         `pokemon with id, name or no "${term}" was not found`,
       );
-    await pokemon.updateOne(updatePokemonDto);
-    return {...pokemon.toJSON(), ...updatePokemonDto}
+    try {
+      await pokemon.updateOne(updatePokemonDto);
+      return { ...pokemon.toJSON(), ...updatePokemonDto };
+    } catch (error) {
+      this.handleException(error);
+    }
   }
 
   remove(id: number) {
     return `This action removes a #${id} pokemon`;
+  }
+
+  private handleException(error: any) {
+    console.log(error);
+    if (error.code === 11000)
+      throw new BadRequestException(JSON.stringify(error.keyValue));
+    throw new InternalServerErrorException(
+      'can not create pokemon - check server logs',
+    );
   }
 }
