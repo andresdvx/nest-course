@@ -9,6 +9,7 @@ import { isValidObjectId, Model } from 'mongoose';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 import { Pokemon } from './entities/pokemon.entity';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Injectable()
 export class PokemonService {
@@ -27,8 +28,15 @@ export class PokemonService {
     }
   }
 
-  async findAll() {
-    return this.pokemonModel.find();
+  async findAll(paginationDto?: PaginationDto) {
+    const { limit = 10, offset = 0 } = paginationDto;
+
+    return await this.pokemonModel
+      .find()
+      .limit(limit)
+      .skip(offset)
+      .sort({ no: 1 })
+      .select('-__v');
   }
 
   async findOne(term: string) {
@@ -68,9 +76,10 @@ export class PokemonService {
   }
 
   async remove(id: string) {
-   const {deletedCount} =  await this.pokemonModel.deleteOne({_id : id});
-   if(deletedCount === 0) throw new NotFoundException(`pokemon with id ${id} was not found  `);
-   return ;
+    const { deletedCount } = await this.pokemonModel.deleteOne({ _id: id });
+    if (deletedCount === 0)
+      throw new NotFoundException(`pokemon with id ${id} was not found  `);
+    return;
   }
 
   private handleException(error: any) {
@@ -80,5 +89,5 @@ export class PokemonService {
     throw new InternalServerErrorException(
       'can not create pokemon - check server logs',
     );
-   }
+  }
 }
