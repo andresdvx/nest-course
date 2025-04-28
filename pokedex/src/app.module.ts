@@ -6,11 +6,13 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { SeedModule } from './seed/seed.module';
 import { ConfigModule } from '@nestjs/config';
 import { EvnConfiguration } from './config/env.config';
+import { JoiValidationSchema } from './config/joi.validation';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [EvnConfiguration]
+      load: [EvnConfiguration],
+      validationSchema: JoiValidationSchema,
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
