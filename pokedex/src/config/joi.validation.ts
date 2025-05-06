@@ -6,4 +6,8 @@ export const JoiValidationSchema = Joi.object({
     MONGO_URI: Joi.string().required().default(6),
     DEFAULT_LIMIT: Joi.number().default(10),
     DEFAULT_OFFSET: Joi.number().default(0),
+    JWT_SECRET: Joi.string().required(),
+    JWT_EXPIRATION: Joi.string().required(),
+    JWT_REFRESH_SECRET: Joi.string().required(),
+    JWT_REFRESH_EXPIRATION: Joi.string().required(),
 })
